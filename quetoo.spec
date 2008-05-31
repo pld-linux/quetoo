@@ -1,4 +1,5 @@
 Summary:	Quetoo: quetoo for deathmatch haX0rs
+Summary(pl.UTF-8):	Quetoo: quetoo dla haX0rów trybu deathmatch
 Name:		quetoo
 Version:	0.6.1
 Release:	0.1
@@ -22,6 +23,13 @@ This is a source port of id Software's Quake II. Initially a fork of
 the Quake2Forge project, this engine aims to provide security and
 performance enhancements. If you're looking for visual effect updates
 and gimmick features, run something else...
+
+%description -l pl.UTF-8
+Jest to port źródeł gry Quake II firmy id Software. Silnik ten,
+początkowo będący odgałęzieniem projektu Quake2Forge, ma na celu
+zapewnienie rozszerzenia bezpieczeństwa i wydajności. Nie należy się
+spodziewać uaktualnień efektów wizualnych czy nowych, zaskakujących
+możliwości.
 
 %prep
 %setup -q
