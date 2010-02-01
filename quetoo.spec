@@ -10,7 +10,7 @@ Group:		Applications/Games
 Source0:	http://tastyspleen.net/~jdolan/%{name}-%{version}.tar.bz2
 # Source0-md5:	2255c1d9857c725f6e82662593fcb51e
 URL:		http://jdolan.dyndns.org/trac/wiki/Quetoo
-BuildRequires:	OpenGL-GLX-devel
+BuildRequires:	OpenGL-GLU-devel
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,7 +20,7 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_gamelibdir		%{_libdir}/quetoo
+%define		_gamelibdir	%{_libdir}/quetoo
 %define		_gamedatadir	%{_datadir}/quetoo
 %define		_gamehomedir	/var/games/quetoo
 
