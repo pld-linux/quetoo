@@ -1,3 +1,5 @@
+# TODO:
+# - R some quake2-data package: Data: /usr/share/quake2
 Summary:	Quetoo: quetoo for deathmatch haX0rs
 Summary(pl.UTF-8):	Quetoo: quetoo dla haX0rów trybu deathmatch
 Name:		quetoo
@@ -10,11 +12,15 @@ Source0:	http://tastyspleen.net/~jdolan/%{name}-%{version}.tar.bz2
 URL:		http://jdolan.dyndns.org/trac/wiki/Quetoo
 BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	SDL-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	mysql-devel
+BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_gamelibdir	%{_libdir}/quetoo
+%define		_gamelibdir		%{_libdir}/quetoo
 %define		_gamedatadir	%{_datadir}/quetoo
 %define		_gamehomedir	/var/games/quetoo
 
@@ -33,14 +39,31 @@ możliwości.
 
 %prep
 %setup -q
+%{__sed} -i -e '
+	# those games are missing in tarball
+    /data\/ctf/d
+    /data\/qmass/d
+    /data\/vanctf/d
+
+    /src\/ctf/d
+    /src\/qmass/d
+    /src\/vanctf/d
+' configure.in
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
+	--disable-warn \
+	--disable-static \
 	--with-opengl \
 	--with-sdl \
 	--with-zlib \
 	--with-mysql \
-	--with-games='baseq2 ctf qmass'
+	--with-games='baseq2'
 
 %{__make}
 
@@ -49,9 +72,15 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/baseq2/game.la
+
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS HACKING README TODO
+%doc README
+%attr(755,root,root) %{_bindir}/quetoo
+%{_libdir}/%{name}/baseq2/game.so
